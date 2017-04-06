@@ -1,0 +1,12 @@
+#!bin/bash
+set -e
+set -u
+
+# remove unwanted individuals from vcf file, ended up with landrace_10_nopre.recode.vcf
+vcftools --vcf sortedtassel_renamed.vcf --remove Xpress.txt --recode --out landrace_nopre
+
+vcftools --vcf landrace_nopre.recode.vcf --remove Xpress.txt --recode --out landrace_nopre1
+
+vcftools --vcf landrace_nopre1.recode.vcf --remove indv_delete.txt --recode --out landrace_nopre2
+
+vcftools --vcf landrace_nopre2.recode.vcf --exclude site_delete.txt --recode --out landrace_geno_chr1to10
